@@ -1,23 +1,24 @@
-﻿namespace ExcelParser.Fields
+﻿using ExcelParser.Serializer;
+
+namespace ExcelParser.Fields
 {
     public class ListField : BaseField
     {
-        //{a;b;c;d;e}
-        protected override void OnParseContent()
+        internal override void OnSerialize(ISerializer serializer, Lexer lexer, ParseParam param)
         {
-            ListField field = new ListField();
-            m_lexer.Match("{");
+            lexer.Match("{");
+            serializer.BeginList(this);
             if (Children.Count > 0)
             {
-                BaseField child = Children[0];
-                child.ParseContent(m_lexer);
-                while (m_lexer.Forward == ";")
+                Children[0].OnSerialize(serializer, lexer, param);
+                while (lexer.Lexical == ";")
                 {
-                    m_lexer.Match(";");
-                    child.ParseContent(m_lexer);
+                    lexer.Match(";");
+                    Children[0].OnSerialize(serializer, lexer, param);
                 }
             }
-            m_lexer.Match("}");
+            lexer.Match("}");
+            serializer.EndList(this);
         }
     }
 }

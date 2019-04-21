@@ -1,11 +1,13 @@
-﻿namespace ExcelParser.Fields
+﻿using ExcelParser.Serializer;
+
+namespace ExcelParser.Fields
 {
     public class DoubleField : BaseField
     {
-        public double value;
-        protected override void OnParseContent()
+        internal override void OnSerialize(ISerializer serializer, Lexer lexer, ParseParam param)
         {
-            double.TryParse(m_lexer.Forward, out value);
+            serializer.DoubleField(this, double.Parse(lexer.Lexical));
+            lexer.NextLexical();
         }
     }
 }

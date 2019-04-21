@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ExcelParser.Serializer;
 using NPOI.SS.UserModel;
 
 namespace ExcelParser
@@ -23,9 +24,10 @@ namespace ExcelParser
                 sheet.ParseFields();
             }
 
+            ISerializer serializer = new JsonSerializer();
             foreach (var sheet in sheets)
             {
-                sheet.Serialize();
+                sheet.Serialize(serializer, param);
             }
         }
 

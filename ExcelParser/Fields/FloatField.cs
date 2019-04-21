@@ -1,11 +1,13 @@
-﻿namespace ExcelParser.Fields
+﻿using ExcelParser.Serializer;
+
+namespace ExcelParser.Fields
 {
     public class FloatField : BaseField
     {
-        public float value;
-        protected override void OnParseContent()
+        internal override void OnSerialize(ISerializer serializer, Lexer lexer, ParseParam param)
         {
-            float.TryParse(m_lexer.Forward, out value);
+            serializer.FloatField(this, float.Parse(lexer.Lexical));
+            lexer.NextLexical();
         }
     }
 }

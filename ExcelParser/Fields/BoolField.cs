@@ -1,11 +1,13 @@
-﻿namespace ExcelParser.Fields
+﻿using ExcelParser.Serializer;
+
+namespace ExcelParser.Fields
 {
     public class BoolField : BaseField
     {
-        public bool value;
-        protected override void OnParseContent()
+        internal override void OnSerialize(ISerializer serializer, Lexer lexer, ParseParam param)
         {
-            bool.TryParse(m_lexer.Forward, out value);
+            serializer.BoolField(this, bool.Parse(lexer.Lexical));
+            lexer.NextLexical();
         }
     }
 }

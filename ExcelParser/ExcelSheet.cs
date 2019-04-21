@@ -1,9 +1,8 @@
 using ExcelParser.Fields;
-using Newtonsoft.Json.Linq;
+using ExcelParser.Serializer;
 using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace ExcelParser
 {
@@ -47,7 +46,7 @@ namespace ExcelParser
         private BaseField ParseField()
         {
             BaseField field = null;
-            switch (m_lexer.Forward)
+            switch (m_lexer.Lexical)
             {
                 case "obj":
                     field = ObjField();
@@ -60,7 +59,7 @@ namespace ExcelParser
                     break;
             }
             m_lexer.Match(":");
-            field.Name = m_lexer.Forward;
+            field.Name = m_lexer.Lexical;
             m_lexer.Match(field.Name);
             return field;
         }
@@ -79,7 +78,7 @@ namespace ExcelParser
         private List<BaseField> ObjFieldRemain()
         {
             List<BaseField> children = new List<BaseField>();
-            while (m_lexer.Forward == ";")
+            while (m_lexer.Lexical == ";")
             {
                 m_lexer.Match(";");
                 children.Add(ParseField());
@@ -92,7 +91,7 @@ namespace ExcelParser
             BaseField field = new ListField();
             m_lexer.Match("list");
             m_lexer.Match("{");
-            switch (m_lexer.Forward)
+            switch (m_lexer.Lexical)
             {
                 case "obj":
                     field.Children.Add(ObjField());
@@ -110,7 +109,7 @@ namespace ExcelParser
 
         private BaseField SimpleField()
         {
-            switch (m_lexer.Forward)
+            switch (m_lexer.Lexical)
             {
                 case "int":
                     m_lexer.Match("int");
@@ -128,23 +127,27 @@ namespace ExcelParser
                     m_lexer.Match("string");
                     return new StringField();
                 default:
-                    throw new Exception($"{m_lexer.Forward} 不属于SimpleField");
+                    throw new Exception($"{m_lexer.Lexical} 不属于SimpleField。位置:{m_lexer.Position}。");
             }
         }
 
-        internal void Serialize()
+        internal void Serialize(ISerializer serializer, ParseParam param)
         {
             for (int rowNum = contentBeginRowNum; rowNum <= contentEndRowNum; rowNum++)
             {
                 IRow row = sheet.GetRow(rowNum);
+                serializer.BeginRow();
                 foreach (var fieldItem in m_fieldMap)
                 {
                     string content = row.GetCell(fieldItem.Key).GetStringCellValue();
                     m_lexer.Init(content);
-                    fieldItem.Value.ParseContent(m_lexer);
-                    break;
+                    serializer.BeginField(fieldItem.Value);
+                    fieldItem.Value.OnSerialize(serializer, m_lexer, param);
+                    serializer.EndField(fieldItem.Value);
                 }
+                serializer.EndRow();
             }
+            Console.WriteLine(serializer.Result);
         }
 
 

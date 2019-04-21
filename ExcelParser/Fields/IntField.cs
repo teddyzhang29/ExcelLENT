@@ -1,11 +1,13 @@
-﻿namespace ExcelParser.Fields
+﻿using ExcelParser.Serializer;
+
+namespace ExcelParser.Fields
 {
     public class IntField : BaseField
     {
-        public int value;
-        protected override void OnParseContent()
+        internal override void OnSerialize(ISerializer serializer, Lexer lexer, ParseParam param)
         {
-            int.TryParse(m_lexer.Forward, out value);
+            serializer.IntField(this, int.Parse(lexer.Lexical));
+            lexer.NextLexical();
         }
     }
 }

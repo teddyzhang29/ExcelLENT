@@ -5,16 +5,17 @@ namespace ExcelParser
 {
     public class Lexer
     {
-        public string Forward { get; private set; }
+        public string Lexical { get; private set; }
+        public int Position { get; private set; }
+        public int ForwardPosition { get; private set; }
 
-        private string m_fieldType;
-        private int m_position;
+        private string m_text;
         private char m_peek;
 
         public void Init(string fieldType)
         {
-            m_position = 0;
-            m_fieldType = fieldType;
+            ForwardPosition = -1;
+            m_text = fieldType;
             m_peek = ' ';
             NextLexical();
         }
@@ -27,6 +28,8 @@ namespace ExcelParser
                 m_peek = NextChar();
             }
 
+            Position = ForwardPosition;
+
             // 标识符
             if (char.IsLetter(m_peek) || m_peek == '_')
             {
@@ -36,7 +39,7 @@ namespace ExcelParser
                     builder.Append(m_peek);
                     m_peek = NextChar();
                 } while (char.IsLetter(m_peek) || char.IsDigit(m_peek) || m_peek == '_');
-                Forward = builder.ToString();
+                Lexical = builder.ToString();
                 return;
             }
 
@@ -70,34 +73,34 @@ namespace ExcelParser
                     }
                     m_peek = NextChar();
                 } while (char.IsDigit(m_peek) || m_peek == '.');
-                Forward = num.ToString();
+                Lexical = num.ToString();
                 return;
             }
 
             if (m_peek == '\0')
             {
-                Forward = null;
+                Lexical = null;
                 return;
             }
 
             string str = m_peek.ToString();
             m_peek = ' ';
-            Forward = str;
+            Lexical = str;
         }
 
         private char NextChar()
         {
-            if (m_position >= m_fieldType.Length)
+            if (ForwardPosition + 1 >= m_text.Length)
                 return '\0';
 
-            return m_fieldType[m_position++];
+            return m_text[++ForwardPosition];
         }
 
         public void Match(string value)
         {
-            if (Forward != value)
+            if (Lexical != value)
             {
-                throw new Exception($"语法错误:字符不匹配。期望值:`{value}`,当前值:`{Forward}`");
+                throw new Exception($"语法错误:字符不匹配。期望值:`{value}`,当前值:`{Lexical}`");
             }
             NextLexical();
         }
