@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelParser", "ExcelParser\ExcelParser.csproj", "{1C9235B5-A916-44D9-BF4D-3D376C483F38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{46D183C2-69A2-4780-B7C6-A3C08E2976DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C9235B5-A916-44D9-BF4D-3D376C483F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9235B5-A916-44D9-BF4D-3D376C483F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9235B5-A916-44D9-BF4D-3D376C483F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9235B5-A916-44D9-BF4D-3D376C483F38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46D183C2-69A2-4780-B7C6-A3C08E2976DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46D183C2-69A2-4780-B7C6-A3C08E2976DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46D183C2-69A2-4780-B7C6-A3C08E2976DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46D183C2-69A2-4780-B7C6-A3C08E2976DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

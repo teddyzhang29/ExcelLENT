@@ -14,11 +14,8 @@ ExcelParser是为游戏开发设计的配置解析程序。主要功能是代码
 
 ### 产生式
 
-type -> objType:id | listType:id | simpleType:id  
-objType -> obj{type objTypeRemain}  
-objTypeRemain -> ;type | ε  
-listType -> list{objType} | list{listType} | list{simpleType}  
-simpleType -> int | float | double | bool | string  
-id -> letter_(letter_ | digit)*  
-leter_ -> [a-zA-Z_]  
-digit -> [0-9]  
+field -> objField:id | listField:id | simpleField:id  
+objField -> obj{field objFieldRemain}  
+objFieldRemain -> ;field objFieldRemain | ε  
+listField -> list{objField} | list{listField} | list{simpleField}  
+simpleField -> int | float | double | bool | string  
