@@ -16,7 +16,7 @@ namespace ExcelParser
         //field -> objField:id | listField:id | simpleField:id
         //objField -> obj{field objFieldRemain}
         //objFieldRemain -> ;field objFieldRemain | ε
-        //listField -> list{objField} | list{listField} | list{simpleField}
+        //listField -> list{field}
         //simpleField -> int | float | double | bool | string
         internal void ParseFields()
         {
@@ -71,8 +71,11 @@ namespace ExcelParser
             BaseField field = new ObjectField();
             m_lexer.Match("obj");
             m_lexer.Match("{");
-            field.Children.Add(ParseField());
-            field.Children.AddRange(ObjFieldRemain());
+            field.AddChild(ParseField());
+            foreach (var child in ObjFieldRemain())
+            {
+                field.AddChild(child);
+            }
             m_lexer.Match("}");
             return field;
         }
@@ -93,18 +96,7 @@ namespace ExcelParser
             BaseField field = new ListField();
             m_lexer.Match("list");
             m_lexer.Match("{");
-            switch (m_lexer.Lexical)
-            {
-                case "obj":
-                    field.Children.Add(ObjField());
-                    break;
-                case "list":
-                    field.Children.Add(ListField());
-                    break;
-                default:
-                    field.Children.Add(SimpleField());
-                    break;
-            }
+            field.AddChild(ParseField());
             m_lexer.Match("}");
             return field;
         }
