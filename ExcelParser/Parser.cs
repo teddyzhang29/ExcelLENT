@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using ExcelParser.Generator;
 using ExcelParser.Serializer;
 using NPOI.SS.UserModel;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace ExcelParser
 {
@@ -28,6 +29,12 @@ namespace ExcelParser
             foreach (var sheet in sheets)
             {
                 sheet.Serialize(serializer, param);
+            }
+
+            IGenerator generator = new CShapGenerator();
+            foreach (var sheet in sheets)
+            {
+                sheet.Generate(generator, param);
             }
         }
 

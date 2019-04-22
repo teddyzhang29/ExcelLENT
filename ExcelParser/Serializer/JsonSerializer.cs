@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using ExcelParser.Fields;
+﻿using ExcelParser.Fields;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace ExcelParser.Serializer
 {

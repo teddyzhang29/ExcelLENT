@@ -1,8 +1,10 @@
 using ExcelParser.Fields;
+using ExcelParser.Generator;
 using ExcelParser.Serializer;
 using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ExcelParser
 {
@@ -147,7 +149,20 @@ namespace ExcelParser
                 }
                 serializer.EndRow();
             }
-            Console.WriteLine(serializer.Result);
+
+            Skill skill = Skill.Deserialize(serializer.Result);
+            //(string s1, int t) t = ("teddy", 3);
+            //string tuple = Newtonsoft.Json.JsonConvert.SerializeObject(t);
+            //string tuple = "{\"Item1\":\"teddy\",\"Item2\":3}";
+            //(string, int) t = Newtonsoft.Json.JsonConvert.DeserializeObject<(string, int)>(tuple);
+
+            //Console.WriteLine(tuple);
+            //Console.WriteLine(serializer.Result);
+        }
+
+        internal void Generate(IGenerator generator, ParseParam param)
+        {
+            generator.Generate(this, m_fieldMap.Values.ToList());
         }
 
 
