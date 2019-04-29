@@ -17,5 +17,5 @@ ExcelParser是为游戏开发设计的配置解析程序。主要功能是代码
 field -> objField:id | listField:id | simpleField:id  
 objField -> obj{field objFieldRemain}  
 objFieldRemain -> ;field objFieldRemain | ε  
-listField -> list{field}
+listField -> list{objField} | list{listField} | list{simpleField}  
 simpleField -> int | float | double | bool | string  
