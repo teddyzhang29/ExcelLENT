@@ -16,6 +16,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Fields\" />
-    <Folder Include="Serializer\" />
   </ItemGroup>
 </Project>

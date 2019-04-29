@@ -25,13 +25,13 @@ namespace ExcelParser
                 sheet.ParseFields();
             }
 
-            ISerializer serializer = new JsonSerializer();
+            ISerializer serializer = new TupledJsonSerializer();
             foreach (var sheet in sheets)
             {
                 sheet.Serialize(serializer, param);
             }
 
-            IGenerator generator = new CShapGenerator();
+            IGenerator generator = new TupledCShapGenerator();
             foreach (var sheet in sheets)
             {
                 sheet.Generate(generator, param);

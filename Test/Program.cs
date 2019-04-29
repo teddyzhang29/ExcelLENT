@@ -1,5 +1,5 @@
-﻿using System;
-using ExcelParser;
+﻿using ExcelParser;
+using System;
 
 namespace Test
 {
@@ -11,7 +11,7 @@ namespace Test
             parser.Parse(new ParseParam()
             {
                 ExcelDir = "../../../Excel",
-                OutputDir = "./Output",
+                OutputDir = "../../../Output",
                 Logger = new ConsoleLogger(),
             });
         }

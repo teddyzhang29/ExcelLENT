@@ -149,20 +149,12 @@ namespace ExcelParser
                 }
                 serializer.EndRow();
             }
-
-            Skill skill = Skill.Deserialize(serializer.Result);
-            //(string s1, int t) t = ("teddy", 3);
-            //string tuple = Newtonsoft.Json.JsonConvert.SerializeObject(t);
-            //string tuple = "{\"Item1\":\"teddy\",\"Item2\":3}";
-            //(string, int) t = Newtonsoft.Json.JsonConvert.DeserializeObject<(string, int)>(tuple);
-
-            //Console.WriteLine(tuple);
-            //Console.WriteLine(serializer.Result);
+            Utility.SaveToFile(serializer.Result, $"{param.OutputDir}/{className}.json");
         }
 
         internal void Generate(IGenerator generator, ParseParam param)
         {
-            generator.Generate(this, m_fieldMap.Values.ToList());
+            generator.Generate(this, m_fieldMap.Values.ToList(), param);
         }
 
 

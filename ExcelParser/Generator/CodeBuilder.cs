@@ -42,6 +42,11 @@ namespace ExcelParser.Generator
             m_structBuilder.AppendLine(text);
             return this;
         }
+        public CodeBuilder AppendLine()
+        {
+            m_structBuilder.AppendLine();
+            return this;
+        }
 
         public override string ToString()
         {

@@ -1,0 +1,81 @@
+[
+  {
+    "skills": [
+      123,
+      222,
+      334,
+      4,
+      5
+    ],
+    "pos": {
+      "Item1": 3,
+      "Item2": 4
+    },
+    "skill2": [
+      {
+        "Item1": 1123,
+        "Item2": 4.55
+      },
+      {
+        "Item1": 5234,
+        "Item2": 6.0
+      },
+      {
+        "Item1": 1,
+        "Item2": 2.3
+      }
+    ],
+    "success": [
+      true,
+      false
+    ],
+    "desc": {
+      "Item1": "你好",
+      "Item2": "不懂"
+    },
+    "nestedObj": {
+      "Item1": 3,
+      "Item2": 4
+    }
+  },
+  {
+    "skills": [
+      11,
+      2,
+      3,
+      4,
+      5
+    ],
+    "pos": {
+      "Item1": 0,
+      "Item2": 1
+    },
+    "skill2": [
+      {
+        "Item1": 1123,
+        "Item2": 455.0
+      },
+      {
+        "Item1": 5234,
+        "Item2": 6.0
+      },
+      {
+        "Item1": 1,
+        "Item2": 23.0
+      }
+    ],
+    "success": [
+      true,
+      true,
+      true
+    ],
+    "desc": {
+      "Item1": "Teddy",
+      "Item2": "Chuan"
+    },
+    "nestedObj": {
+      "Item1": 33,
+      "Item2": 44
+    }
+  }
+]
