@@ -74,5 +74,9 @@ namespace ExcelParser.Generator
             }
             return builder.ToString();
         }
+
+        public virtual void OnPostGenerate(List<ExcelSheet> sheets, GenerationParam param)
+        {
+        }
     }
 }

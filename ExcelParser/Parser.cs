@@ -40,6 +40,7 @@ namespace ExcelParser
                 {
                     sheet.Generate(param.Generations[i]);
                 }
+                param.Generations[i].Generator.OnPostGenerate(sheets, param.Generations[i]);
             }
         }
 
