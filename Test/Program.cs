@@ -10,8 +10,8 @@ namespace Test
             Parser parser = new Parser();
             parser.Parse(new ParseParam()
             {
-                ExcelDir = "../../../Excel",
-                OutputDir = "../../../Output",
+                ExcelDir = "../../Excel",
+                OutputDir = "../../Output",
                 Logger = new ConsoleLogger(),
             });
         }

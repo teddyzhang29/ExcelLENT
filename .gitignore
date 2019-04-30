@@ -53,3 +53,4 @@ dkms.conf
 .vs/
 [Bb]in/
 [Oo]bj/
+packages/
