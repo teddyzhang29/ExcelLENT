@@ -26,7 +26,7 @@ namespace Test
                 {
                     new GenerationParam()
                     {
-                        Generator = new TupledCShapGenerator(),
+                        Generator = new TupledCSharpGenerator(),
                         OutDir = "../../Output/Generation",
                     },
                 },

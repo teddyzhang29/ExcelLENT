@@ -70,7 +70,7 @@
     <Compile Include="Fields\StringField.cs" />
     <Compile Include="Generator\CodeBuilder.cs" />
     <Compile Include="Generator\IGenerator.cs" />
-    <Compile Include="Generator\TupledCShapGenerator.cs" />
+    <Compile Include="Generator\TupledCSharpGenerator.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="Lexer.cs" />
     <Compile Include="Parser.cs" />

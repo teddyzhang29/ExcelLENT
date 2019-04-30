@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExcelParser.Generator
 {
-    public class TupledCShapGenerator : IGenerator
+    public class TupledCSharpGenerator : IGenerator
     {
         public void Generate(ExcelSheet excelSheet, List<BaseField> fields, GenerationParam param)
         {
