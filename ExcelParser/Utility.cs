@@ -2,7 +2,7 @@
 
 namespace ExcelParser
 {
-    class Utility
+    public class Utility
     {
         public static void SaveToFile(string text, string path)
         {
