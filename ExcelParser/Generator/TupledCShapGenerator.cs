@@ -6,7 +6,7 @@ namespace ExcelParser.Generator
 {
     public class TupledCShapGenerator : IGenerator
     {
-        public void Generate(ExcelSheet excelSheet, List<BaseField> fields, ParseParam param)
+        public void Generate(ExcelSheet excelSheet, List<BaseField> fields, GenerationParam param)
         {
             CodeBuilder builder = new CodeBuilder();
             builder.AppendLine($"public class {excelSheet.className}")
@@ -38,7 +38,7 @@ namespace ExcelParser.Generator
             }
             builder.SubtractIndent().AppendLine("}");
 
-            Utility.SaveToFile(builder.ToString(), $"{param.OutputDir}/{excelSheet.className}.cs");
+            Utility.SaveToFile(builder.ToString(), $"{param.OutDir}/{excelSheet.className}.cs");
         }
 
         private string FieldTypeString(BaseField field)

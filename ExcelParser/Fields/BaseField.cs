@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using ExcelParser.Serializer;
+﻿using ExcelParser.Serializer;
+using System.Collections.Generic;
 
 namespace ExcelParser.Fields
 {
@@ -9,6 +9,6 @@ namespace ExcelParser.Fields
         public string Description { get; set; }
         public List<BaseField> Children { get; private set; } = new List<BaseField>();
 
-        internal abstract void OnSerialize(ISerializer serializer, Lexer lexer, ParseParam param);
+        internal abstract void OnSerialize(ISerializer serializer, Lexer lexer);
     }
 }

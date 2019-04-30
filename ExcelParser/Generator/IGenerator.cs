@@ -5,6 +5,6 @@ namespace ExcelParser.Generator
 {
     public interface IGenerator
     {
-        void Generate(ExcelSheet excelSheet, List<BaseField> fields, ParseParam param);
+        void Generate(ExcelSheet excelSheet, List<BaseField> fields, GenerationParam param);
     }
 }

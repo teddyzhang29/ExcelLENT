@@ -1,4 +1,6 @@
 ﻿using ExcelParser;
+using ExcelParser.Generator;
+using ExcelParser.Serializer;
 using System;
 
 namespace Test
@@ -11,8 +13,23 @@ namespace Test
             parser.Parse(new ParseParam()
             {
                 ExcelDir = "../../Excel",
-                OutputDir = "../../Output",
                 Logger = new ConsoleLogger(),
+                Serializations = new SerializationParam[]
+                {
+                    new SerializationParam()
+                    {
+                        Serializer = new TupledJsonSerializer(),
+                        OutDir = "../../Output/Serialization",
+                    },
+                },
+                Generations = new GenerationParam[]
+                {
+                    new GenerationParam()
+                    {
+                        Generator = new TupledCShapGenerator(),
+                        OutDir = "../../Output/Generation",
+                    },
+                },
             });
         }
     }

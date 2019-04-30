@@ -25,16 +25,21 @@ namespace ExcelParser
                 sheet.ParseFields();
             }
 
-            ISerializer serializer = new TupledJsonSerializer();
-            foreach (var sheet in sheets)
+            for (int i = 0; param.Serializations != null && i < param.Serializations.Length; i++)
             {
-                sheet.Serialize(serializer, param);
+                foreach (var sheet in sheets)
+                {
+                    sheet.Serialize(param.Serializations[i]);
+                }
             }
 
-            IGenerator generator = new TupledCShapGenerator();
-            foreach (var sheet in sheets)
+
+            for (int i = 0; param.Generations != null && i < param.Generations.Length; i++)
             {
-                sheet.Generate(generator, param);
+                foreach (var sheet in sheets)
+                {
+                    sheet.Generate(param.Generations[i]);
+                }
             }
         }
 
@@ -96,7 +101,20 @@ namespace ExcelParser
     public class ParseParam
     {
         public string ExcelDir { get; set; }
-        public string OutputDir { get; set; }
         public ILogger Logger { get; set; }
+        public SerializationParam[] Serializations { get; set; }
+        public GenerationParam[] Generations { get; set; }
+    }
+
+    public class SerializationParam
+    {
+        public ISerializer Serializer { get; set; }
+        public string OutDir { get; set; }
+    }
+
+    public class GenerationParam
+    {
+        public IGenerator Generator { get; set; }
+        public string OutDir { get; set; }
     }
 }

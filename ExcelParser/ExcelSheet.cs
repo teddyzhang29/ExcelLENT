@@ -1,6 +1,4 @@
 using ExcelParser.Fields;
-using ExcelParser.Generator;
-using ExcelParser.Serializer;
 using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
@@ -133,28 +131,28 @@ namespace ExcelParser
             }
         }
 
-        internal void Serialize(ISerializer serializer, ParseParam param)
+        internal void Serialize(SerializationParam param)
         {
             for (int rowNum = contentBeginRowNum; rowNum <= contentEndRowNum; rowNum++)
             {
                 IRow row = sheet.GetRow(rowNum);
-                serializer.BeginRow();
+                param.Serializer.BeginRow();
                 foreach (var fieldItem in m_fieldMap)
                 {
                     string content = row.GetCell(fieldItem.Key).GetStringCellValue();
                     m_lexer.Init(content);
-                    serializer.BeginField(fieldItem.Value);
-                    fieldItem.Value.OnSerialize(serializer, m_lexer, param);
-                    serializer.EndField(fieldItem.Value);
+                    param.Serializer.BeginField(fieldItem.Value);
+                    fieldItem.Value.OnSerialize(param.Serializer, m_lexer);
+                    param.Serializer.EndField(fieldItem.Value);
                 }
-                serializer.EndRow();
+                param.Serializer.EndRow();
             }
-            Utility.SaveToFile(serializer.Result, $"{param.OutputDir}/{className}.json");
+            Utility.SaveToFile(param.Serializer.Result, $"{param.OutDir}/{className}.json");
         }
 
-        internal void Generate(IGenerator generator, ParseParam param)
+        internal void Generate(GenerationParam param)
         {
-            generator.Generate(this, m_fieldMap.Values.ToList(), param);
+            param.Generator.Generate(this, m_fieldMap.Values.ToList(), param);
         }
 
 
