@@ -76,15 +76,15 @@ namespace ExcelParser
                             {
                                 ExcelSheet excelSheet = new ExcelSheet()
                                 {
-                                    workbook = workbook,
-                                    sheet = sheet,
-                                    className = row.GetCell(1, MissingCellPolicy.CREATE_NULL_AS_BLANK).GetStringCellValue(),
-                                    primaryKeyRow = sheet.GetRow(rowIndex++),
-                                    customTypeRow = sheet.GetRow(rowIndex++),
-                                    fieldTypeRow = sheet.GetRow(rowIndex++),
-                                    fieldNameRow = sheet.GetRow(rowIndex++),
-                                    contentBeginRowNum = ++rowIndex,
-                                    contentEndRowNum = sheet.LastRowNum,
+                                    Workbook = workbook,
+                                    Sheet = sheet,
+                                    ClassName = row.GetCell(1, MissingCellPolicy.CREATE_NULL_AS_BLANK).GetStringCellValue(),
+                                    PrimaryKeyRow = sheet.GetRow(rowIndex++),
+                                    CustomTypeRow = sheet.GetRow(rowIndex++),
+                                    FieldTypeRow = sheet.GetRow(rowIndex++),
+                                    FieldNameRow = sheet.GetRow(rowIndex++),
+                                    ContentBeginRowNum = ++rowIndex,
+                                    ContentEndRowNum = sheet.LastRowNum,
                                 };
                                 sheets.Add(excelSheet);
                                 excelSheet.Close();

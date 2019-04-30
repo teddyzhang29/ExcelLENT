@@ -9,14 +9,14 @@ namespace ExcelParser.Generator
         public void Generate(ExcelSheet excelSheet, List<BaseField> fields, GenerationParam param)
         {
             CodeBuilder builder = new CodeBuilder();
-            builder.AppendLine($"public class {excelSheet.className}")
+            builder.AppendLine($"public class {excelSheet.ClassName}")
                        .AppendLine("{").AddIndent();
             {
                 //Deserialization
-                builder.AppendLine($"public static {excelSheet.className} Deserialize(string serialization)")
+                builder.AppendLine($"public static {excelSheet.ClassName} Deserialize(string serialization)")
                        .AppendLine("{").AddIndent();
                 {
-                    builder.AppendLine($"{excelSheet.className} data = new {excelSheet.className}();");
+                    builder.AppendLine($"{excelSheet.ClassName} data = new {excelSheet.ClassName}();");
                     builder.AppendLine($"data.m_rows = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Row>>(serialization);");
                     builder.AppendLine($"return data;");
                 }
@@ -38,7 +38,7 @@ namespace ExcelParser.Generator
             }
             builder.SubtractIndent().AppendLine("}");
 
-            Utility.SaveToFile(builder.ToString(), $"{param.OutDir}/{excelSheet.className}.cs");
+            Utility.SaveToFile(builder.ToString(), $"{param.OutDir}/{excelSheet.ClassName}.cs");
         }
 
         private string FieldTypeString(BaseField field)

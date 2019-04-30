@@ -8,6 +8,16 @@ namespace ExcelParser
 {
     public class ExcelSheet
     {
+        public string ClassName { get; set; }
+        public IRow PrimaryKeyRow { get; set; }
+        public IRow CustomTypeRow { get; set; }
+        public IRow FieldTypeRow { get; set; }
+        public IRow FieldNameRow { get; set; }
+        public int ContentBeginRowNum { get; set; }
+        public int ContentEndRowNum { get; set; }
+        public ISheet Sheet { get; set; }
+        public IWorkbook Workbook { get; set; }
+
         private Dictionary<int, BaseField> m_fieldMap = new Dictionary<int, BaseField>();
         private Lexer m_lexer = new Lexer();
 
@@ -18,13 +28,13 @@ namespace ExcelParser
         //simpleField -> int | float | double | bool | string
         internal void ParseFields()
         {
-            int first = Math.Min(fieldTypeRow.FirstCellNum, fieldNameRow.FirstCellNum);
+            int first = Math.Min(FieldTypeRow.FirstCellNum, FieldNameRow.FirstCellNum);
             for (int cellNum = first;
-                cellNum < Math.Max(fieldTypeRow.LastCellNum, fieldNameRow.LastCellNum);
+                cellNum < Math.Max(FieldTypeRow.LastCellNum, FieldNameRow.LastCellNum);
                 cellNum++)
             {
-                string fieldType = fieldTypeRow.GetCell(cellNum, MissingCellPolicy.CREATE_NULL_AS_BLANK).GetStringCellValue();
-                string fieldName = fieldNameRow.GetCell(cellNum, MissingCellPolicy.CREATE_NULL_AS_BLANK).GetStringCellValue();
+                string fieldType = FieldTypeRow.GetCell(cellNum, MissingCellPolicy.CREATE_NULL_AS_BLANK).GetStringCellValue();
+                string fieldName = FieldNameRow.GetCell(cellNum, MissingCellPolicy.CREATE_NULL_AS_BLANK).GetStringCellValue();
 
                 if (string.IsNullOrEmpty(fieldType))
                     continue;
@@ -133,9 +143,9 @@ namespace ExcelParser
 
         internal void Serialize(SerializationParam param)
         {
-            for (int rowNum = contentBeginRowNum; rowNum <= contentEndRowNum; rowNum++)
+            for (int rowNum = ContentBeginRowNum; rowNum <= ContentEndRowNum; rowNum++)
             {
-                IRow row = sheet.GetRow(rowNum);
+                IRow row = Sheet.GetRow(rowNum);
                 param.Serializer.BeginRow();
                 foreach (var fieldItem in m_fieldMap)
                 {
@@ -147,7 +157,7 @@ namespace ExcelParser
                 }
                 param.Serializer.EndRow();
             }
-            Utility.SaveToFile(param.Serializer.Result, $"{param.OutDir}/{className}.json");
+            Utility.SaveToFile(param.Serializer.Result, $"{param.OutDir}/{ClassName}.json");
         }
 
         internal void Generate(GenerationParam param)
@@ -155,37 +165,9 @@ namespace ExcelParser
             param.Generator.Generate(this, m_fieldMap.Values.ToList(), param);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        internal string className;
-        internal IRow primaryKeyRow;
-        internal IRow customTypeRow;
-        internal IRow fieldTypeRow;
-        internal IRow fieldNameRow;
-        internal int contentBeginRowNum;
-        internal int contentEndRowNum;
-        internal ISheet sheet;
-        internal IWorkbook workbook;
-
         public void Close()
         {
-            workbook.Close();
+            Workbook.Close();
         }
     }
 }
