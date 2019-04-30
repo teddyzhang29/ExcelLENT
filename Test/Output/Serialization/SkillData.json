@@ -34,8 +34,14 @@
       "Item2": "不懂"
     },
     "nestedObj": {
-      "Item1": 3,
-      "Item2": 4
+      "Item1": {
+        "Item1": "名字",
+        "Item2": 1
+      },
+      "Item2": {
+        "Item1": 3,
+        "Item2": 4
+      }
     }
   },
   {
@@ -74,8 +80,14 @@
       "Item2": "Chuan"
     },
     "nestedObj": {
-      "Item1": 33,
-      "Item2": 44
+      "Item1": {
+        "Item1": "名字",
+        "Item2": 2
+      },
+      "Item2": {
+        "Item1": 33,
+        "Item2": 44
+      }
     }
   }
 ]

@@ -57,7 +57,7 @@ namespace ExcelParser.Serializer
             if (m_currentJToken is JObject)
             {
                 JObject objField = m_currentJToken as JObject;
-                objField.Add(field.Name, group);
+                objField.Add("Item" + (objField.Count + 1), group);
             }
             else if (m_currentJToken is JArray)
             {
@@ -92,8 +92,7 @@ namespace ExcelParser.Serializer
                 m_currentJToken = m_currentJToken.Parent;
                 if (m_currentJToken is JProperty)
                 {
-                    JProperty jp = m_currentJToken as JProperty;
-                    m_currentJToken = jp.Value;
+                    m_currentJToken = m_currentJToken.Parent;
                 }
             }
         }
