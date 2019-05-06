@@ -34,7 +34,7 @@ namespace ExcelParser.Generator
                             {
                                 BaseField keyField = primaryFields[i];
                                 string mapValueType = FieldFullMapName(primaryFields, i + 1);
-                                string mapValueFieldName = Utility.ToCamelCase(primaryFields.ConvertAll((v) => v.Name).ToArray(), i + 1);
+                                string mapValueFieldName = $"{Utility.ToCamelCase(primaryFields.ConvertAll((v) => v.Name).ToArray(), i + 1)}Map";
                                 builder.AppendLine($"{mapValueType} {mapValueFieldName};");
                                 builder.AppendLine($"if (!{mapFieldName}.TryGetValue(row.{keyField.Name}, out {mapValueFieldName}))")
                                        .AppendLine("{").AddIndent();
@@ -59,8 +59,8 @@ namespace ExcelParser.Generator
                         continue;
 
                     string mapTypeName = FieldFullMapName(primaryFields);
-                    string mapFieldName = Utility.ToCamelCase(primaryFields.ConvertAll((v) => v.Name).ToArray());
-                    builder.AppendLine($"private static {mapTypeName} s_{mapFieldName}Map = new {mapTypeName}();");
+                    string mapFieldName = $"s_{Utility.ToCamelCase(primaryFields.ConvertAll((v) => v.Name).ToArray())}Map";
+                    builder.AppendLine($"private static {mapTypeName} {mapFieldName} = new {mapTypeName}();");
                     builder.Append($"public static Row FindBy{Utility.ToPascalCase(primaryFields.ConvertAll((v) => v.Name).ToArray())}(");
                     for (int i = 0; i < primaryFields.Count; i++)
                     {
@@ -68,17 +68,30 @@ namespace ExcelParser.Generator
                         {
                             builder.Append(", ", true);
                         }
-                        builder.Append($"{FieldFullTypeName(primaryFields[i])} {primaryFields[i].Name}", true);
+                        builder.Append($"{FieldFullTypeName(primaryFields[i])} {primaryFields[i].Name.ToLower()}", true);
                     }
                     builder.AppendLine(")", true)
                            .AppendLine("{").AddIndent();
-
-                    builder.Append($"return s_{mapFieldName}Map");
-                    for (int i = 0; i < primaryFields.Count; i++)
                     {
-                        builder.Append($"[{primaryFields[i].Name}]", true);
+                        for (int i = 0; i < primaryFields.Count - 1; i++)
+                        {
+                            BaseField keyField = primaryFields[i];
+                            string mapValueType = FieldFullMapName(primaryFields, i + 1);
+                            string mapValueFieldName = $"{Utility.ToCamelCase(primaryFields.ConvertAll((v) => v.Name).ToArray(), i + 1)}Map";
+                            builder.AppendLine($"{mapValueType} {mapValueFieldName};");
+                            builder.AppendLine($"if (!{mapFieldName}.TryGetValue({primaryFields[i].Name.ToLower()}, out {mapValueFieldName}))")
+                                   .AppendLine("{").AddIndent();
+                            builder.AppendLine($"throw new System.Exception($\"Config Not Found:`{{{keyField.Name.ToLower()}}}`\");");
+                            builder.SubtractIndent().AppendLine("}");
+                            mapFieldName = mapValueFieldName;
+                        }
+                        builder.AppendLine("Row retVal;");
+                        builder.AppendLine($"if (!{mapFieldName}.TryGetValue({primaryFields[primaryFields.Count - 1].Name.ToLower()}, out retVal))")
+                               .AppendLine("{").AddIndent();
+                        builder.AppendLine($"throw new System.Exception($\"Config Not Found:`{{{primaryFields[primaryFields.Count - 1].Name.ToLower()}}}`\");");
+                        builder.SubtractIndent().AppendLine("}");
+                        builder.AppendLine("return retVal;");
                     }
-                    builder.AppendLine(";", true);
                     builder.SubtractIndent().AppendLine("}");
                 }
 
