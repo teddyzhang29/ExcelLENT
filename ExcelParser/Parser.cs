@@ -25,6 +25,11 @@ namespace ExcelParser
                 sheet.ParseFields();
             }
 
+            foreach (var sheet in sheets)
+            {
+                sheet.ReadPrimaryFields();
+            }
+
             for (int i = 0; param.Serializations != null && i < param.Serializations.Length; i++)
             {
                 foreach (var sheet in sheets)
@@ -32,7 +37,6 @@ namespace ExcelParser
                     sheet.Serialize(param.Serializations[i]);
                 }
             }
-
 
             for (int i = 0; param.Generations != null && i < param.Generations.Length; i++)
             {
@@ -80,7 +84,7 @@ namespace ExcelParser
                                     Workbook = workbook,
                                     Sheet = sheet,
                                     ClassName = row.GetCell(1, MissingCellPolicy.CREATE_NULL_AS_BLANK).GetStringCellValue(),
-                                    PrimaryKeyRow = sheet.GetRow(rowIndex++),
+                                    m_primaryKeyRow = sheet.GetRow(rowIndex++),
                                     CustomTypeRow = sheet.GetRow(rowIndex++),
                                     FieldTypeRow = sheet.GetRow(rowIndex++),
                                     FieldNameRow = sheet.GetRow(rowIndex++),

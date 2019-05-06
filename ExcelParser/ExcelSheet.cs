@@ -9,7 +9,6 @@ namespace ExcelParser
     public class ExcelSheet
     {
         public string ClassName { get; set; }
-        public IRow PrimaryKeyRow { get; set; }
         public IRow CustomTypeRow { get; set; }
         public IRow FieldTypeRow { get; set; }
         public IRow FieldNameRow { get; set; }
@@ -17,9 +16,36 @@ namespace ExcelParser
         public int ContentEndRowNum { get; set; }
         public ISheet Sheet { get; set; }
         public IWorkbook Workbook { get; set; }
+        public List<List<BaseField>> PrimaryFieldsList { get; set; } = new List<List<BaseField>>();
 
+        internal IRow m_primaryKeyRow { get; set; }
         private Dictionary<int, BaseField> m_fieldMap = new Dictionary<int, BaseField>();
+        private Dictionary<string, BaseField> m_fieldNameMap = new Dictionary<string, BaseField>();
         private Lexer m_lexer = new Lexer();
+
+        internal void ReadPrimaryFields()
+        {
+            for (int cellNum = m_primaryKeyRow.FirstCellNum; cellNum < m_primaryKeyRow.LastCellNum; cellNum++)
+            {
+                string fieldString = m_primaryKeyRow.GetCell(cellNum, MissingCellPolicy.CREATE_NULL_AS_BLANK).GetStringCellValue();
+                if (string.IsNullOrEmpty(fieldString))
+                    break;
+
+                string[] fieldNames = fieldString.Split(',');
+                List<BaseField> primaryFields = new List<BaseField>();
+                foreach (var fieldName in fieldNames)
+                {
+
+                    BaseField primaryField;
+                    if (!m_fieldNameMap.TryGetValue(fieldName, out primaryField))
+                    {
+                        throw new Exception($"找不到主键字段:`{fieldName}`");
+                    }
+                    primaryFields.Add(primaryField);
+                }
+                PrimaryFieldsList.Add(primaryFields);
+            }
+        }
 
         //field -> objField:id | listField:id | simpleField:id
         //objField -> obj{field objFieldRemain}
@@ -49,6 +75,7 @@ namespace ExcelParser
                 if (field != null)
                 {
                     m_fieldMap.Add(cellNum, field);
+                    m_fieldNameMap.Add(field.Name, field);
                 }
             }
         }

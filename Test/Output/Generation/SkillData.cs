@@ -1,14 +1,31 @@
 public class SkillData
 {
-    public static SkillData Deserialize(string serialization)
+    private static System.Collections.Generic.List<Row> s_rows;
+    public static void Deserialize(string serialization)
     {
-        SkillData data = new SkillData();
-        data.m_rows = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Row>>(serialization);
-        return data;
+        s_rows = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Row>>(serialization);
+        foreach (var row in s_rows)
+        {
+            {
+                System.Collections.Generic.Dictionary<System.Collections.Generic.List<bool>, Row> success;
+                if (!s_idSuccessMap.TryGetValue(row.id, out success))
+                {
+                    success = new System.Collections.Generic.Dictionary<System.Collections.Generic.List<bool>, Row>();
+                    s_idSuccessMap.Add(row.id, success);
+                }
+                success.Add(row.success, row);
+            }
+        }
     }
 
+    private static System.Collections.Generic.Dictionary<int, System.Collections.Generic.Dictionary<System.Collections.Generic.List<bool>, Row>> s_idSuccessMap = new System.Collections.Generic.Dictionary<int, System.Collections.Generic.Dictionary<System.Collections.Generic.List<bool>, Row>>();
+    public static Row FindByIDSuccess(int id, System.Collections.Generic.List<bool> success)
+    {
+        return s_idSuccessMap[id][success];
+    }
     public class Row
     {
+        public int id;
         public System.Collections.Generic.List<int> skills;
         public (int x, int z) pos;
         public System.Collections.Generic.List<(int id, float level)> skill2;
@@ -17,5 +34,4 @@ public class SkillData
         public ((string name, int level) player, (int x, int z) pos) nestedObj;
     }
 
-    private System.Collections.Generic.List<Row> m_rows;
 }
