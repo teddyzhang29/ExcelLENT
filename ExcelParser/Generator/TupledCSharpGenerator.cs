@@ -12,13 +12,13 @@ namespace ExcelParser.Generator
             builder.AppendLine($"public class {excelSheet.ClassName}")
                        .AppendLine("{").AddIndent();
             {
+                //Data
+                builder.AppendLine($"private static System.Collections.Generic.List<Row> s_rows;");
                 //Deserialization
-                builder.AppendLine($"public static {excelSheet.ClassName} Deserialize(string serialization)")
+                builder.AppendLine("public static void Deserialize(string serialization)")
                        .AppendLine("{").AddIndent();
                 {
-                    builder.AppendLine($"{excelSheet.ClassName} data = new {excelSheet.ClassName}();");
-                    builder.AppendLine($"data.m_rows = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Row>>(serialization);");
-                    builder.AppendLine($"return data;");
+                    builder.AppendLine("s_rows = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Row>>(serialization);");
                 }
                 builder.SubtractIndent().AppendLine("}").AppendLine();
 
@@ -32,9 +32,6 @@ namespace ExcelParser.Generator
                     }
                 }
                 builder.SubtractIndent().AppendLine("}").AppendLine();
-
-                //Data
-                builder.AppendLine($"private System.Collections.Generic.List<Row> m_rows;");
             }
             builder.SubtractIndent().AppendLine("}");
 
