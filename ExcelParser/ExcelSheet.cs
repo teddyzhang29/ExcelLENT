@@ -12,6 +12,7 @@ namespace ExcelParser
         public IRow CustomTypeRow { get; set; }
         public IRow FieldTypeRow { get; set; }
         public IRow FieldNameRow { get; set; }
+        public IRow FieldDescriptionRow { get; set; }
         public int ContentBeginRowNum { get; set; }
         public int ContentEndRowNum { get; set; }
         public ISheet Sheet { get; set; }
@@ -72,6 +73,8 @@ namespace ExcelParser
                 m_lexer.Init(fieldType);
 
                 BaseField field = ParseField();
+                field.Description = FieldDescriptionRow.GetCell(cellNum, MissingCellPolicy.CREATE_NULL_AS_BLANK).GetStringCellValue();
+
                 if (field != null)
                 {
                     m_fieldMap.Add(cellNum, field);

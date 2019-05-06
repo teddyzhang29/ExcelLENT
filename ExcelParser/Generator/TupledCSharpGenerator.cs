@@ -101,7 +101,10 @@ namespace ExcelParser.Generator
                 {
                     foreach (var field in fields)
                     {
-                        builder.AppendLine($"public {FieldFullTypeName(field)} {field.Name};");
+                        builder.AppendLine("/// <summary>")
+                               .AppendLine($"/// {field.Description}")
+                               .AppendLine("/// </summary>");
+                        builder.AppendLine($"public {FieldFullTypeName(field)} {field.Name} {{ get; set; }}");
                     }
                 }
                 builder.SubtractIndent().AppendLine("}").AppendLine();

@@ -88,7 +88,8 @@ namespace ExcelParser
                                     CustomTypeRow = sheet.GetRow(rowIndex++),
                                     FieldTypeRow = sheet.GetRow(rowIndex++),
                                     FieldNameRow = sheet.GetRow(rowIndex++),
-                                    ContentBeginRowNum = ++rowIndex,
+                                    FieldDescriptionRow = sheet.GetRow(rowIndex++),
+                                    ContentBeginRowNum = rowIndex,
                                     ContentEndRowNum = sheet.LastRowNum,
                                 };
                                 sheets.Add(excelSheet);
