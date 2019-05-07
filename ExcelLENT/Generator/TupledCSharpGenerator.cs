@@ -15,7 +15,7 @@ namespace BBGo.ExcelLENT.Generator
                        .AppendLine("{").AddIndent();
             }
             {
-                builder.AppendLine($"public class {excelSheet.ClassName}")
+                builder.AppendLine($"public partial class {excelSheet.ClassName}")
                            .AppendLine("{").AddIndent();
                 {
                     //Data

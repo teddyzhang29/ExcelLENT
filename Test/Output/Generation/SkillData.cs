@@ -1,6 +1,6 @@
 namespace Config
 {
-    public class SkillData
+    public partial class SkillData
     {
         private static System.Collections.Generic.List<Row> s_rows;
         public static void Deserialize(string serialization)
