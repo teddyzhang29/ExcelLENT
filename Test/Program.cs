@@ -1,9 +1,9 @@
-﻿using ExcelParser;
-using ExcelParser.Generator;
-using ExcelParser.Serializer;
+﻿using BBGo.ExcelLENT;
+using BBGo.ExcelLENT.Generator;
+using BBGo.ExcelLENT.Serializer;
 using System;
 
-namespace Test
+namespace BBGo.Test
 {
     class Program
     {

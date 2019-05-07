@@ -51,14 +51,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExcelParser\ExcelParser.csproj">
-      <Project>{7113172e-b7f2-4625-abf4-e9a521908267}</Project>
-      <Name>ExcelParser</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExcelLENT\ExcelLENT.csproj">
+      <Project>{7113172e-b7f2-4625-abf4-e9a521908267}</Project>
+      <Name>ExcelLENT</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

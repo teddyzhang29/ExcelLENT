@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace ExcelParser
+namespace BBGo.ExcelLENT
 {
     public static class Utility
     {

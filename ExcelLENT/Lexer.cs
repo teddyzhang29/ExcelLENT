@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace ExcelParser
+namespace BBGo.ExcelLENT
 {
     public class Lexer
     {

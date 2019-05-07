@@ -1,4 +1,4 @@
-﻿namespace ExcelParser
+﻿namespace BBGo.ExcelLENT
 {
     public interface ILogger
     {

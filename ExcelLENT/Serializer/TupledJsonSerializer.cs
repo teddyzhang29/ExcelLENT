@@ -1,9 +1,9 @@
-﻿using ExcelParser.Fields;
+﻿using BBGo.ExcelLENT.Fields;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelParser.Serializer
+namespace BBGo.ExcelLENT.Serializer
 {
     public class TupledJsonSerializer : ISerializer
     {

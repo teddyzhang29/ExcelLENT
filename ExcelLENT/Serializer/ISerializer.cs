@@ -1,6 +1,6 @@
-﻿using ExcelParser.Fields;
+﻿using BBGo.ExcelLENT.Fields;
 
-namespace ExcelParser.Serializer
+namespace BBGo.ExcelLENT.Serializer
 {
     public interface ISerializer
     {

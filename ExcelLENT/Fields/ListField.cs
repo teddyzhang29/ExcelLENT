@@ -1,6 +1,6 @@
-﻿using ExcelParser.Serializer;
+﻿using BBGo.ExcelLENT.Serializer;
 
-namespace ExcelParser.Fields
+namespace BBGo.ExcelLENT.Fields
 {
     public class ListField : BaseField
     {

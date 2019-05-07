@@ -1,7 +1,7 @@
-﻿using ExcelParser.Fields;
+﻿using BBGo.ExcelLENT.Fields;
 using System;
 
-namespace ExcelParser
+namespace BBGo.ExcelLENT
 {
     [Serializable]
     public class SerializationException : Exception

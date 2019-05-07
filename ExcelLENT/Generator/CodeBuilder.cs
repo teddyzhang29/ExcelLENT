@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ExcelParser.Generator
+namespace BBGo.ExcelLENT.Generator
 {
     public class CodeBuilder
     {

@@ -1,6 +1,6 @@
-# ExcelParser
+# ExcelLENT
 
-ExcelParser是为游戏开发设计的配置解析程序。主要功能是代码生成，读表并序列化。
+ExcelLENT是为游戏开发设计的配置解析程序。主要功能是代码生成，读表并序列化。
 
 ## 如何使用
 

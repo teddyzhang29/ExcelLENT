@@ -1,11 +1,11 @@
-﻿using ExcelParser.Generator;
-using ExcelParser.Serializer;
+﻿using BBGo.ExcelLENT.Generator;
+using BBGo.ExcelLENT.Serializer;
 using NPOI.SS.UserModel;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace ExcelParser
+namespace BBGo.ExcelLENT
 {
     public class Parser
     {

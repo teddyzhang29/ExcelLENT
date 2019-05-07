@@ -1,7 +1,7 @@
-﻿using ExcelParser.Serializer;
+﻿using BBGo.ExcelLENT.Serializer;
 using System.Collections.Generic;
 
-namespace ExcelParser.Fields
+namespace BBGo.ExcelLENT.Fields
 {
     public abstract class BaseField
     {

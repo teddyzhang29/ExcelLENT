@@ -1,6 +1,6 @@
 ﻿using NPOI.SS.UserModel;
 
-namespace ExcelParser
+namespace BBGo.ExcelLENT
 {
     public static class ExcelEx
     {

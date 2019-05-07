@@ -4,9 +4,6 @@ public class SkillData
     public static void Deserialize(string serialization)
     {
         s_rows = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Row>>(serialization);
-        foreach (var row in s_rows)
-        {
-        }
     }
 
     public class Row

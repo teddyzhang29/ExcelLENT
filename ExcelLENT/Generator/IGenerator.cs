@@ -1,7 +1,7 @@
-﻿using ExcelParser.Fields;
+﻿using BBGo.ExcelLENT.Fields;
 using System.Collections.Generic;
 
-namespace ExcelParser.Generator
+namespace BBGo.ExcelLENT.Generator
 {
     public interface IGenerator
     {

@@ -1,8 +1,8 @@
-﻿using ExcelParser.Fields;
+﻿using BBGo.ExcelLENT.Fields;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExcelParser.Generator
+namespace BBGo.ExcelLENT.Generator
 {
     public class TupledCSharpGenerator : IGenerator
     {
