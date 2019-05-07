@@ -100,7 +100,7 @@ namespace ExcelParser
         {
             if (Lexical != value)
             {
-                throw new Exception($"语法错误:字符不匹配。期望值:`{value}`,当前值:`{Lexical}`");
+                throw new Exception($"语法错误:字符不匹配。期望值:`{value}`,当前值:`{Lexical}`,文本:`{m_text}`");
             }
             NextLexical();
         }
