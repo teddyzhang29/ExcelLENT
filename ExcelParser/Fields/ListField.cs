@@ -8,7 +8,7 @@ namespace ExcelParser.Fields
         {
             lexer.Match("{");
             serializer.BeginList(this);
-            if (Children.Count > 0)
+            if (Children.Count > 0 && lexer.Lexical != "}")
             {
                 Children[0].OnSerialize(serializer, lexer);
                 while (lexer.Lexical == ";")
