@@ -183,6 +183,11 @@ namespace ExcelParser
                 foreach (var fieldItem in m_fieldMap)
                 {
                     string content = row.GetCell(fieldItem.Key).GetStringCellValue();
+                    if (fieldItem.Value is ListField || fieldItem.Value is ObjectField)
+                    {
+                        //对于ListField和ObjectField, 自动在两侧加上{}
+                        content = $"{{{content}}}";
+                    }
                     m_lexer.Init(content);
                     param.Serializer.BeginField(fieldItem.Value);
                     fieldItem.Value.OnSerialize(param.Serializer, m_lexer);
