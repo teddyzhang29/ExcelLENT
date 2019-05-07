@@ -43,7 +43,7 @@ namespace BBGo.ExcelLENT
                     BaseField primaryField;
                     if (!m_fieldNameMap.TryGetValue(fieldName, out primaryField))
                     {
-                        throw new Exception($"找不到主键字段:`{fieldName}`");
+                        throw new Exception($"Cannot find primary key:`{fieldName}`");
                     }
                     primaryFields.Add(primaryField);
                 }
@@ -170,7 +170,7 @@ namespace BBGo.ExcelLENT
                     m_lexer.Match("string");
                     return new StringField();
                 default:
-                    throw new Exception($"{m_lexer.Lexical} 不属于SimpleField。位置:{m_lexer.Position}。");
+                    throw new Exception($"{m_lexer.Lexical} is not SimpleField。Position:{m_lexer.Position}。");
             }
         }
 

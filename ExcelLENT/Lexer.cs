@@ -55,7 +55,7 @@ namespace BBGo.ExcelLENT
                     {
                         if (hasDot)
                         {
-                            throw new Exception("数字解析错误:多个小数点");
+                            throw new Exception("Parse number failed: Multiple dot.");
                         }
                         hasDot = true;
                     }
@@ -100,7 +100,7 @@ namespace BBGo.ExcelLENT
         {
             if (Lexical != value)
             {
-                throw new Exception($"语法错误:字符不匹配。期望值:`{value}`,当前值:`{Lexical}`,文本:`{m_text}`");
+                throw new Exception($"Syntas Error:Character not match。Expected:`{value}`, but:`{Lexical}`, full text:`{m_text}`");
             }
             NextLexical();
         }

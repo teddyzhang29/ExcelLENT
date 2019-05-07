@@ -66,7 +66,7 @@ namespace BBGo.ExcelLENT.Serializer
             }
             else if (m_currentJToken != null)
             {
-                throw new Exception($"'{field.GetType()}' 类型无法添加子类型。");
+                throw new Exception($"'{field.GetType()}' cannot add child type。");
             }
             m_currentJToken = group;
         }
@@ -84,7 +84,7 @@ namespace BBGo.ExcelLENT.Serializer
         {
             if (m_matchStack.Count == 0)
             {
-                throw new Exception("括号不匹配。");
+                throw new Exception("Braket not match。");
             }
             m_matchStack.Pop();
             if (m_matchStack.Count > 0)

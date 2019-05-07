@@ -15,7 +15,7 @@ namespace BBGo.ExcelLENT
         {
             if (!Directory.Exists(param.ExcelDir))
             {
-                param.Logger?.LogError($"找不到Excel目录:{param.ExcelDir}");
+                param.Logger?.LogError($"Excel Dir Not Found:`{param.ExcelDir}`");
                 return;
             }
 
