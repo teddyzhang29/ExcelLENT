@@ -19,36 +19,40 @@ namespace ExcelParser.Generator
                        .AppendLine("{").AddIndent();
                 {
                     builder.AppendLine("s_rows = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.List<Row>>(serialization);");
-                    builder.AppendLine("foreach (var row in s_rows)")
-                           .AppendLine("{").AddIndent();
 
-                    foreach (var primaryFields in excelSheet.PrimaryFieldsList)
+                    if (excelSheet.PrimaryFieldsList.Count > 0)
                     {
-                        if (primaryFields.Count == 0)
-                            continue;
+                        builder.AppendLine("foreach (var row in s_rows)")
+                               .AppendLine("{").AddIndent();
 
-                        builder.AppendLine("{").AddIndent();
+                        foreach (var primaryFields in excelSheet.PrimaryFieldsList)
                         {
-                            string mapFieldName = $"s_{Utility.ToCamelCase(primaryFields.ConvertAll((v) => v.Name).ToArray())}Map";
-                            for (int i = 0; i < primaryFields.Count - 1; i++)
+                            if (primaryFields.Count == 0)
+                                continue;
+
+                            builder.AppendLine("{").AddIndent();
                             {
-                                BaseField keyField = primaryFields[i];
-                                string mapValueType = FieldFullMapName(primaryFields, i + 1);
-                                string mapValueFieldName = $"{Utility.ToCamelCase(primaryFields.ConvertAll((v) => v.Name).ToArray(), i + 1)}Map";
-                                builder.AppendLine($"{mapValueType} {mapValueFieldName};");
-                                builder.AppendLine($"if (!{mapFieldName}.TryGetValue(row.{keyField.Name}, out {mapValueFieldName}))")
-                                       .AppendLine("{").AddIndent();
-                                builder.AppendLine($"{mapValueFieldName} = new {mapValueType}();");
-                                builder.AppendLine($"{mapFieldName}.Add(row.{keyField.Name}, {mapValueFieldName});");
-                                builder.SubtractIndent().AppendLine("}");
-                                mapFieldName = mapValueFieldName;
+                                string mapFieldName = $"s_{Utility.ToCamelCase(primaryFields.ConvertAll((v) => v.Name).ToArray())}Map";
+                                for (int i = 0; i < primaryFields.Count - 1; i++)
+                                {
+                                    BaseField keyField = primaryFields[i];
+                                    string mapValueType = FieldFullMapName(primaryFields, i + 1);
+                                    string mapValueFieldName = $"{Utility.ToCamelCase(primaryFields.ConvertAll((v) => v.Name).ToArray(), i + 1)}Map";
+                                    builder.AppendLine($"{mapValueType} {mapValueFieldName};");
+                                    builder.AppendLine($"if (!{mapFieldName}.TryGetValue(row.{keyField.Name}, out {mapValueFieldName}))")
+                                           .AppendLine("{").AddIndent();
+                                    builder.AppendLine($"{mapValueFieldName} = new {mapValueType}();");
+                                    builder.AppendLine($"{mapFieldName}.Add(row.{keyField.Name}, {mapValueFieldName});");
+                                    builder.SubtractIndent().AppendLine("}");
+                                    mapFieldName = mapValueFieldName;
+                                }
+                                builder.AppendLine($"{mapFieldName}.Add(row.{primaryFields[primaryFields.Count - 1].Name}, row);");
                             }
-                            builder.AppendLine($"{mapFieldName}.Add(row.{primaryFields[primaryFields.Count - 1].Name}, row);");
+                            builder.SubtractIndent().AppendLine("}");
                         }
+
                         builder.SubtractIndent().AppendLine("}");
                     }
-
-                    builder.SubtractIndent().AppendLine("}");
                 }
                 builder.SubtractIndent().AppendLine("}").AppendLine();
 
