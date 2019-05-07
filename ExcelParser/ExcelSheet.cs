@@ -26,6 +26,9 @@ namespace ExcelParser
 
         internal void ReadPrimaryFields()
         {
+            if (m_primaryKeyRow == null)
+                return;
+
             for (int cellNum = m_primaryKeyRow.FirstCellNum; cellNum < m_primaryKeyRow.LastCellNum; cellNum++)
             {
                 string fieldString = m_primaryKeyRow.GetCell(cellNum, MissingCellPolicy.CREATE_NULL_AS_BLANK).GetStringCellValue();
