@@ -176,26 +176,36 @@ namespace ExcelParser
 
         internal void Serialize(SerializationParam param)
         {
-            for (int rowNum = ContentBeginRowNum; rowNum <= ContentEndRowNum; rowNum++)
+            int currRowNum = 0;
+            BaseField currField = null;
+            try
             {
-                IRow row = Sheet.GetRow(rowNum);
-                param.Serializer.BeginRow();
-                foreach (var fieldItem in m_fieldMap)
+                for (currRowNum = ContentBeginRowNum; currRowNum <= ContentEndRowNum; currRowNum++)
                 {
-                    string content = row.GetCell(fieldItem.Key).GetStringCellValue();
-                    if (fieldItem.Value is ListField || fieldItem.Value is ObjectField)
+                    IRow row = Sheet.GetRow(currRowNum);
+                    param.Serializer.BeginRow();
+                    foreach (var fieldItem in m_fieldMap)
                     {
-                        //对于ListField和ObjectField, 自动在两侧加上{}
-                        content = $"{{{content}}}";
+                        currField = fieldItem.Value;
+                        string content = row.GetCell(fieldItem.Key).GetStringCellValue();
+                        if (currField is ListField || currField is ObjectField)
+                        {
+                            //对于ListField和ObjectField, 自动在两侧加上{}
+                            content = $"{{{content}}}";
+                        }
+                        m_lexer.Init(content);
+                        param.Serializer.BeginField(currField);
+                        currField.OnSerialize(param.Serializer, m_lexer);
+                        param.Serializer.EndField(currField);
                     }
-                    m_lexer.Init(content);
-                    param.Serializer.BeginField(fieldItem.Value);
-                    fieldItem.Value.OnSerialize(param.Serializer, m_lexer);
-                    param.Serializer.EndField(fieldItem.Value);
+                    param.Serializer.EndRow();
                 }
-                param.Serializer.EndRow();
+                Utility.SaveToFile(param.Serializer.Result, $"{param.OutDir}/{ClassName}.json");
             }
-            Utility.SaveToFile(param.Serializer.Result, $"{param.OutDir}/{ClassName}.json");
+            catch (Exception e)
+            {
+                throw new SerializationException(this, currRowNum, currField, e);
+            }
         }
 
         internal void Generate(GenerationParam param)
