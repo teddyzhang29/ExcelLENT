@@ -77,7 +77,7 @@ namespace BBGo.ExcelLENT
                                 cell.CellType != CellType.String)
                                 continue;
 
-                            if (cell.GetStringCellValue().Trim() == "[Config]")
+                            if (cell.GetStringCellValue().Trim() == "[ExcelLENT]")
                             {
                                 ExcelSheet excelSheet = new ExcelSheet()
                                 {
