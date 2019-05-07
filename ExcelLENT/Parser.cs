@@ -122,5 +122,6 @@ namespace BBGo.ExcelLENT
     {
         public IGenerator Generator { get; set; }
         public string OutDir { get; set; }
+        public string Package { get; set; } = "Config";
     }
 }
