@@ -180,6 +180,7 @@ namespace BBGo.ExcelLENT
             BaseField currField = null;
             try
             {
+                param.Serializer.Clear();
                 for (currRowNum = ContentBeginRowNum; currRowNum <= ContentEndRowNum; currRowNum++)
                 {
                     IRow row = Sheet.GetRow(currRowNum);

@@ -18,5 +18,6 @@ namespace BBGo.ExcelLENT.Serializer
         void IntField(IntField field, int value);
         void BoolField(BoolField field, bool value);
         void StringField(StringField field, string value);
+        void Clear();
     }
 }

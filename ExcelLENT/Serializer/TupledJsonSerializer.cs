@@ -20,6 +20,14 @@ namespace BBGo.ExcelLENT.Serializer
             }
         }
 
+        public void Clear()
+        {
+            m_data.Clear();
+            m_row = null;
+            m_currentJToken = null;
+            m_matchStack.Clear();
+        }
+
         public void BeginRow()
         {
             m_row = new JObject();
