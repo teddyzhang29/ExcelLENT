@@ -64,7 +64,7 @@ namespace BBGo.ExcelLENT
                         if (sheet.PhysicalNumberOfRows == 0)
                             continue;
 
-                        for (int rowIndex = sheet.FirstRowNum; rowIndex <= sheet.LastRowNum; rowIndex++)
+                        for (int rowIndex = sheet.FirstRowNum; rowIndex <= sheet.LastRowNum;)
                         {
                             IRow row = sheet.GetRow(rowIndex++);
                             if (row == null)
