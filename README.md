@@ -10,14 +10,14 @@ ExcelLENT会遍历指定目录中的所有Excel文件，若符合条件则会导
 再下一行是保留行，用于将来新增功能。  
 以上就完成了表头的声明。
 
-![head_definition]
+![head_definition][head_definition]
 
 ## 2. 字段声明
 
 接下来用三行进行字段声明。  
 第一行是字段类型声明，第二行是字段名称，第三行是字段描述。
 
-![field_definition]
+![field_definition][field_definition]
 
 ### 2.1 字段类型
 
