@@ -44,11 +44,12 @@ namespace BBGo.ExcelLENT
             }
 
             //数字
-            if (char.IsDigit(m_peek))
+            if (m_peek == '-' || char.IsDigit(m_peek))
             {
                 double num = 0;
                 double f = 1;
                 bool hasDot = false;
+                bool nagtive = false;
                 do
                 {
                     if (m_peek == '.')
@@ -58,6 +59,14 @@ namespace BBGo.ExcelLENT
                             throw new Exception("Parse number failed: Multiple dot.");
                         }
                         hasDot = true;
+                    }
+                    else if (m_peek == '-')
+                    {
+                        if (nagtive)
+                        {
+                            throw new Exception("Parse number failed: Multiple nagtive.");
+                        }
+                        nagtive = true;
                     }
                     else
                     {
@@ -73,6 +82,10 @@ namespace BBGo.ExcelLENT
                     }
                     m_peek = NextChar();
                 } while (char.IsDigit(m_peek) || m_peek == '.');
+
+                if (nagtive)
+                    num = -num;
+
                 Lexical = num.ToString();
                 return;
             }
