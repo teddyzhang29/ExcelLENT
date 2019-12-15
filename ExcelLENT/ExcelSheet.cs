@@ -23,6 +23,7 @@ namespace BBGo.ExcelLENT
         private Dictionary<int, BaseField> m_fieldMap = new Dictionary<int, BaseField>();
         private Dictionary<string, BaseField> m_fieldNameMap = new Dictionary<string, BaseField>();
         private Lexer m_lexer = new Lexer();
+        private Reader m_reader = new Reader();
 
         internal void ReadPrimaryFields()
         {
@@ -194,9 +195,9 @@ namespace BBGo.ExcelLENT
                             //对于ListField和ObjectField, 自动在两侧加上{}
                             content = $"{{{content}}}";
                         }
-                        m_lexer.Init(content);
+                        m_reader.Init(content);
                         param.Serializer.BeginField(currField);
-                        currField.OnSerialize(param.Serializer, m_lexer);
+                        currField.OnSerialize(param.Serializer, m_reader);
                         param.Serializer.EndField(currField);
                     }
                     param.Serializer.EndRow();

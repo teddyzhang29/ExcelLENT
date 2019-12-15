@@ -4,10 +4,9 @@ namespace BBGo.ExcelLENT.Fields
 {
     public class StringField : BaseField
     {
-        internal override void OnSerialize(ISerializer serializer, Lexer lexer)
+        internal override void OnSerialize(ISerializer serializer, Reader reader)
         {
-            serializer.StringField(this, lexer.Lexical);
-            lexer.NextLexical();
+            serializer.StringField(this, reader.NextContent());
         }
     }
 }

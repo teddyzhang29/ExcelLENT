@@ -9,6 +9,6 @@ namespace BBGo.ExcelLENT.Fields
         public string Description { get; set; }
         public List<BaseField> Children { get; private set; } = new List<BaseField>();
 
-        internal abstract void OnSerialize(ISerializer serializer, Lexer lexer);
+        internal abstract void OnSerialize(ISerializer serializer, Reader reader);
     }
 }

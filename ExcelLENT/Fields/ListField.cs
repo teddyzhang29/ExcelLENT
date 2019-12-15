@@ -4,20 +4,20 @@ namespace BBGo.ExcelLENT.Fields
 {
     public class ListField : BaseField
     {
-        internal override void OnSerialize(ISerializer serializer, Lexer lexer)
+        internal override void OnSerialize(ISerializer serializer, Reader reader)
         {
-            lexer.Match("{");
+            reader.Match('{');
             serializer.BeginList(this);
-            if (Children.Count > 0 && lexer.Lexical != "}")
+            if (Children.Count > 0 && reader.Current != '}')
             {
-                Children[0].OnSerialize(serializer, lexer);
-                while (lexer.Lexical == ";")
+                Children[0].OnSerialize(serializer, reader);
+                while (reader.Current == ';')
                 {
-                    lexer.Match(";");
-                    Children[0].OnSerialize(serializer, lexer);
+                    reader.Match(';');
+                    Children[0].OnSerialize(serializer, reader);
                 }
             }
-            lexer.Match("}");
+            reader.Match('}');
             serializer.EndList(this);
         }
     }

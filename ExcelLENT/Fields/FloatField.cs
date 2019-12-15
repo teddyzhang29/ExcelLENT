@@ -4,10 +4,9 @@ namespace BBGo.ExcelLENT.Fields
 {
     public class FloatField : BaseField
     {
-        internal override void OnSerialize(ISerializer serializer, Lexer lexer)
+        internal override void OnSerialize(ISerializer serializer, Reader reader)
         {
-            serializer.FloatField(this, float.Parse(lexer.Lexical));
-            lexer.NextLexical();
+            serializer.FloatField(this, float.Parse(reader.NextContent()));
         }
     }
 }
